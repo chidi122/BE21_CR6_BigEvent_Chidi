@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Events{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-expand-lg navbar-custom-grey">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color: rgba(0, 0, 0, 0.977);">EVENTHUB</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+
+
+            <div class="d-flex">
+                <a href="{{ path('app_event_index') }}" class="btn btn-primary me-2">All Events</a>
+                <a href="{{ path('app_event_filter_by_type', {'eventType': 'music'}) }}"
+                    class="btn btn-secondary me-2">Music
+                    Events</a>
+                <a href="{{ path('app_event_filter_by_type', {'eventType': 'theater'}) }}"
+                    class="btn btn-info me-2">Theater Events</a>
+
+                <a href="{{ path('app_event_filter_by_type', {'eventType': 'sport'}) }}" class="btn btn-success">Sport
+                    Events</a>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+
+    <table width="100%" bgcolor="#123459" cellpadding="20">
+        <tr>
+            <td align="center">
+                <font face="Arial" size="6" color="white">
+                    <b>EVENTS OF THE YEAR</b>
+                </font>
+            </td>
+        </tr>
+    </table>
+
+    <div style=" margin-top: 20px;">
+        <a href="{{ path('app_event_new') }}"
+            style="background-color: #123456; color: white; padding: 10px 20px; text-decoration: none; font-family: Arial, sans-serif; border-radius: 5px; border: none; display: inline-block;">
+            Create New
+        </a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for event in events %}
+        <div class="col-md-9 col-sm-9 col-lg-4 col-xl-4 mb-3 ">
+
+
+
+            <div class="card">
+                <img src="{{ event.picture }}" class="card-img-top" alt="Image for {{ event.name }}"
+                    style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.name }}</h5>
+                    <p class="card-text"><strong>Description:</strong> {{ event.description }}</p>
+                    <p class="card-text"><strong>Date:</strong> {{ event.date ? event.date|date('Y-m-d H:i:s') : 'N/A'
+                        }}</p>
+                    <p class="card-text"><strong>Capacity:</strong> {{ event.capacity }}</p>
+                    <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ event.email }}">{{ event.email
+                            }}</a></p>
+                    <p class="card-text"><strong>Phone:</strong> {{ event.phone }}</p>
+                    <p class="card-text"><strong>Address:</strong> {{ event.address }}</p>
+                    <p class="card-text"><strong>Type:</strong> {{ event.type }}</p>
+                    <div class="card">
+                        <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info">Show</a>
+                        <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-primary">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <h2>no event found</h2>
+        {% endfor %}
+    </div>
+</div>
+</div>
+{% endblock %}

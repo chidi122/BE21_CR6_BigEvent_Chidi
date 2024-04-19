@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event{% endblock %}
+
+{% block body %}
+<h1 style="color: #123456; font-family: 'Arial', sans-serif; font-size: 32px; text-align: center; margin-top: 20px; margin-bottom: 20px; border-bottom: 2px solid #123456; padding-bottom: 10px;">
+    Event Details
+</h1>
+
+
+    <div class="container mt-1">
+        <div class="card">
+            <img src="{{ event.picture }}" class="card-img-top" alt="Image of {{ event.name }}" style="height: 300px; object-fit: cover;">
+            <div class="card-body">
+                <h3 class="card-title">{{ event.name }}</h3>
+               
+                <p class="card-text"><strong>Date:</strong> {{ event.date ? event.date|date('Y-m-d H:i:s') : 'N/A' }}</p>
+                <p class="card-text"><strong>Description:</strong> {{ event.description }}</p>
+                <p class="card-text"><strong>Capacity:</strong> {{ event.capacity }}</p>
+                <p class="card-text"><strong>Email:</strong> <a href="mailto:{{ event.email }}">{{ event.email }}</a></p>
+                <p class="card-text"><strong>Phone:</strong> {{ event.phone }}</p>
+                <p class="card-text"><strong>Address:</strong> {{ event.address }}</p>
+                <p class="card-text"><strong>Event URL:</strong> <a href="{{ event.url }}" target="_blank">{{ event.url }}</a></p>
+                <p class="card-text"><strong>Type:</strong> {{ event.type }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-primary">Edit</a>
+                <a href="{{ path('app_event_index') }}" class="btn btn-secondary">Back to list</a>
+                {{ include('event/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    
+
+{% endblock %}
